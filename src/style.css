@@ -1,0 +1,4 @@
+.border-valid { border: 2px  green; }
+.border-invalid { border: 2px  red; }
+.text-valid { color: green; }
+.text-invalid { color: red; }
