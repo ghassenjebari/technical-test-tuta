@@ -1,8 +1,8 @@
 // Here I added some custom controls over the input to display a detailed error message
 // It could be verified automatically when trying to cast it to the URL object, but will have just one generic error message
-// Initilly i was trying to cast the string to an URL object in a try catch block ,but the constructor calls 4 functions and canParse is the one cheking if the url is valid
+// Initially i was trying to cast the string to an URL object in a try catch block ,but the constructor calls 4 functions and canParse is the one cheking if the url is valid
 // https://developer.mozilla.org/en-US/docs/Web/API/URL/canParse_static
-// I also put this function in a util file to be reused across the project, and potentially new link utils functions can be added here
+// I also put this function in a util file to be reused across the project, and potentially new url utils functions can be added here
 
 export function isValidUrl (url: string) :{ valid: boolean; reason?: string } {
     url=url.trim()
