@@ -1,13 +1,15 @@
 import { checkUrlExists } from './url_api';
-import { isValidUrl } from './url_utils'
+import { throttle } from './utils/throttle_util';
+import { isValidUrl } from './utils/url_utils';
 
 export function inputController(element: HTMLInputElement) {
 
     const message = document.createElement("div");
     element.insertAdjacentElement("afterend", message);
+    const throttledCheck = throttle(updateUIAfterServerResponse, 5000);
 
 
-    async function updateUI() {
+    function updateUI() {
         const { valid, reason } = isValidUrl(element.value);        
         element.classList.remove("border-valid", "border-invalid");
         message.classList.remove("text-valid", "text-invalid");
@@ -21,9 +23,13 @@ export function inputController(element: HTMLInputElement) {
             element.classList.add("border-valid");
             message.classList.add("text-valid");
             message.textContent = "Verifying the Url on the server side...";
+            throttledCheck(element.value);
+        }
+    }
+
+    async function updateUIAfterServerResponse(urlToCheck:string) {
             try {
-                const result = await checkUrlExists(element.value);
-                console.log(result);
+                const result = await checkUrlExists(urlToCheck);
                 if (result.exists) {
                     element.classList.add("border-valid");
                     message.classList.add("text-valid");
@@ -36,9 +42,8 @@ export function inputController(element: HTMLInputElement) {
                 }
             } catch (err) {
                     message.textContent = "Data cannot be fetched from the server at this time";
-        }
-
-        } 
+        
+    }
 
        
     }
