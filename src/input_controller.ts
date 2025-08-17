@@ -7,12 +7,15 @@ export function inputController(element: HTMLInputElement) {
     const message = document.createElement("div");
     element.insertAdjacentElement("afterend", message);
     const throttledCheck = throttle(updateUIAfterServerResponse, 5000);
+    function resetClasses() {
+        element.classList.remove("border-valid", "border-invalid", "border-pending");
+        message.classList.remove("text-valid", "text-invalid", "text-pending");
+    }
 
 
     function updateUI() {
         const { valid, reason } = isValidUrl(element.value);        
-        element.classList.remove("border-valid", "border-invalid");
-        message.classList.remove("text-valid", "text-invalid");
+        resetClasses();
 
         if (!valid)  {
             element.classList.add("border-invalid");
@@ -20,8 +23,8 @@ export function inputController(element: HTMLInputElement) {
             message.textContent = reason!;
         }
         else {
-            element.classList.add("border-valid");
-            message.classList.add("text-valid");
+            element.classList.add("border-pending");
+            message.classList.add("text-pending");
             message.textContent = "Verifying the Url on the server side...";
             throttledCheck(element.value);
         }
@@ -30,6 +33,7 @@ export function inputController(element: HTMLInputElement) {
     async function updateUIAfterServerResponse(urlToCheck:string) {
             try {
                 const result = await checkUrlExists(urlToCheck);
+                resetClasses();
                 if (result.exists) {
                     element.classList.add("border-valid");
                     message.classList.add("text-valid");

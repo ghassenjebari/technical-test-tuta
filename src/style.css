@@ -1,4 +1,44 @@
-.border-valid { border: 2px  green; }
-.border-invalid { border: 2px  red; }
-.text-valid { color: green; }
-.text-invalid { color: red; }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffedea;
+  font-family: Arial, sans-serif;
+}
+.input-wrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+.logo {
+  width: 30%;
+  height: auto;
+}
+#url-input {
+  margin-top: 2%;
+  font-size: 20px;
+  border-radius: 20px;
+  outline: none;
+  width: 90%;
+  padding-left: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.border-valid { border: 2px solid green; }
+.border-invalid { border: 2px solid red; }
+.border-pending { border: 2px solid orange; }
+.text-valid{ 
+  color: green;
+  font-size: 18px;
+}
+.text-invalid {
+  color: red;
+  font-size: 18px;
+}
+.text-pending { 
+  color: orange;
+  font-size: 18px;
+}
