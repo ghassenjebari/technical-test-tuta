@@ -13,7 +13,7 @@ const folderListUrl= new Set([
     "https://app.tuta.com/images"
 ]); 
 export async function checkUrlExists(url: string): Promise<{ exists: boolean; type: "file" | "folder" | null }> {
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     if (fileListUrl.has(url)){
         return {exists:true, type:"file"};

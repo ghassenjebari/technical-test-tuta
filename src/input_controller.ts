@@ -33,17 +33,21 @@ export function inputController(element: HTMLInputElement) {
     async function updateUIAfterServerResponse(urlToCheck:string) {
             try {
                 const result = await checkUrlExists(urlToCheck);
-                resetClasses();
-                if (result.exists) {
-                    element.classList.add("border-valid");
-                    message.classList.add("text-valid");
-                    message.textContent = `This URL exists and it is ${result.type}`;
-                } 
-                else {
-                    element.classList.add("border-invalid");
-                    message.classList.add("text-invalid");
-                    message.textContent = "This URL don't exists in the server";
+                if (urlToCheck===element.value){
+                    resetClasses();
+                    if (result.exists) {
+                        element.classList.add("border-valid");
+                        message.classList.add("text-valid");
+                        message.textContent = `This URL exists and it is ${result.type}`;
+                    } 
+                    else {
+                        element.classList.add("border-invalid");
+                        message.classList.add("text-invalid");
+                        message.textContent = "This URL don't exists in the server";
+                    }
+
                 }
+               
             } catch (err) {
                     message.textContent = "Data cannot be fetched from the server at this time";
         
